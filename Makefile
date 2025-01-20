@@ -15,7 +15,7 @@ pre_commit_init:
 
 up:
 	docker compose up -d
-	poetry run alembic upgrade head
+	cd backend && poetry run alembic upgrade head
 
 down:
 	docker compose down
@@ -24,5 +24,5 @@ site:
 	cd frontend && tsc --watch
 
 api:
-	cd powervision_api && npm run start:dev
+	cd api && npm run start:dev
 

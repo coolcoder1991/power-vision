@@ -5,7 +5,6 @@ import sys
 
 import click
 
-from powervision_models.powervision_models import func1
 
 
 @click.command()
