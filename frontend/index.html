@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Batter</title>
+    <meta lang="en" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header id="header">
+      <h1 class="title" id="main-title">Batter</h1>
+      <div class="header-menu-box" id="header-menu">
+        <img
+          src="images/list.svg"
+          alt="menu"
+          class="hamburg-list"
+          onclick="showMenu()"
+        />
+        <div class="header-menu-dropdown-box" id="header-menu-dropdown">
+          <p onclick="addDevice()">add a device</p>
+          <p>manage account</p>
+        </div>
+      </div>
+
+      <div class="header-subtext" onclick="getAccounts()">
+        <span class="el--1">Battery</span>
+        <span class="el--2">Management</span>
+        <span class="el--3">System</span>
+      </div>
+    </header>
+    <article class="article-container" id="article">
+      <div class="hi-lvl">
+        <span class="name">Total Charges</span>
+        <span class="name">Devices Tracked</span>
+        <span class="name">Dead Devices</span>
+        <span>10</span>
+        <span>4</span>
+        <span>1</span>
+      </div>
+      <div class="devices-container" id="devices"></div>
+
+      <script src="out/scripts.js"></script>
+    </article>
+  </body>
+</html>

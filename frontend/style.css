@@ -1,0 +1,197 @@
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+/*
+Blue: #9bf6ff
+Black: #212529;
+Orange: #ffd6a5;
+Red: #ffadad;
+PINK: #ffc6ff
+Green: #caffbf
+yello: #fdffb6
+*/
+
+/* ELEMENTS */
+body {
+  background-color: #212529;
+  font-family: "Be Vietnam Pro", sans-serif;
+  width: 1400px;
+  margin: 0 auto;
+}
+
+header {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  text-align: center;
+  margin-bottom: 80px;
+  margin-left: 200px;
+  margin-right: 30px;
+  justify-items: center;
+}
+
+/* NAMED CLASSES */
+.title {
+  color: white;
+  font-size: 96px;
+  letter-spacing: -2px;
+}
+
+.header-subtext {
+  border: 3px solid #ffadad;
+  border-radius: 10px;
+  display: inline-block;
+  padding: 5px 15px;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+.header-menu-box {
+  margin: 20px auto;
+}
+
+.header-menu-dropdown-box {
+  display: none;
+  /* position: absolute; */
+  background-color: #f1f1f1;
+  min-width: 160px;
+  z-index: 1;
+}
+
+.show {
+  display: block;
+}
+.el--1 {
+  color: #ffd6a5;
+}
+
+.el--2 {
+  color: #fdffb6;
+}
+
+.el--3 {
+  color: #caffbf;
+}
+
+.hi-lvl {
+  display: grid;
+  grid-template-columns: repeat(3, 200px);
+  column-gap: 10px;
+  row-gap: 10px;
+  justify-content: center;
+  justify-items: center;
+  color: white;
+  font-size: 22px;
+  margin-bottom: 50px;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.devices-container {
+  display: grid;
+  grid-template-columns: repeat(3, 200px);
+  justify-content: center;
+  justify-items: center;
+  column-gap: 30px;
+  row-gap: 20px;
+}
+
+.device-box {
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  text-align: center;
+  width: 180px;
+}
+
+.some {
+  background-color: #ffd6a5;
+}
+
+.full {
+  background-color: #caffbf;
+}
+
+.dead {
+  background-color: #ffadad;
+}
+
+.device-name {
+  pointer-events: none;
+  justify-self: center;
+}
+
+.charge-next {
+  grid-column: 1/-1;
+}
+
+.mng-bar {
+  justify-self: end;
+  grid-column: 1/-1;
+}
+
+.lightning-icon {
+  color: #ffd6a5;
+}
+
+.details-box {
+  width: 500px;
+  margin: 20px auto;
+  padding: 5px;
+  display: none;
+  grid-template-columns: 1fr 50px;
+  border-radius: 10px;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.device-details-title-box {
+  background-color: #caffbf;
+  margin: 0 auto;
+  width: 200px;
+  text-align: center;
+  border-radius: 5px;
+  display: none;
+  cursor: pointer;
+}
+
+.device-details-title-box p {
+  pointer-events: none;
+}
+
+.delete-device-button {
+  cursor: pointer;
+  margin-top: 30px;
+  padding: 2px 10px;
+  border: 2px solid black;
+  border-radius: 2px;
+  color: red;
+  text-transform: uppercase;
+  background-color: white;
+  font-size: 10px;
+  font-weight: bold;
+  grid-column-start: span 2;
+  justify-self: center;
+  letter-spacing: 0.5px;
+}
+
+.edit-device-button {
+  cursor: pointer;
+  padding: 2px 10px;
+  border: 2px solid black;
+  border-radius: 2px;
+  color: black;
+  background-color: white;
+  align-self: start;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.charging-info-box {
+  margin: 20px 10px;
+}
