@@ -1,16 +1,16 @@
 # _*_ coding: utf-8 _*_
 
-"""Console script for batter_models."""
+"""Console script for powervision_models."""
 import sys
 
 import click
 
-from batter_models.batter_models import func1
+from powervision_models.powervision_models import func1
 
 
 @click.command()
 def main(args=None):
-    """Console script for batter_models."""
+    """Console script for powervision_models."""
     click.echo("Hello, what would you like to search for?")
     return 0
 

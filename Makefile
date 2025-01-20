@@ -24,5 +24,5 @@ site:
 	cd frontend && tsc --watch
 
 api:
-	cd batter_api && npm run start:dev
+	cd powervision_api && npm run start:dev
 

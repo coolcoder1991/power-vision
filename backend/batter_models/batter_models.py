@@ -15,8 +15,8 @@ class Accounts(Base):
     dt_updated = Column("dt_updated", DateTime, server_default=func.now())
 
 
-class BatteryType(Base):
-    __tablename__ = "battery_type"
+class powervisionyType(Base):
+    __tablename__ = "powervisiony_type"
     id = Column("id", Integer, primary_key=True)
     name = Column("name", Text)
     dt_updated = Column("dt_updated", DateTime, server_default=func.now())
@@ -28,15 +28,15 @@ class Device(Base):
     name = Column("name", Text)
     model = Column("model", Text)
     account_id = Column("account_id", Integer, ForeignKey(Accounts.id))
-    battery_id = Column("battery_id", Integer, ForeignKey(BatteryType.id))
+    powervisiony_id = Column("powervisiony_id", Integer, ForeignKey(powervisionyType.id))
     dt_updated = Column("dt_updated", DateTime, server_default=func.now())
 
 
-class Batterystatus(Base):
-    __tablename__ = "battery_status"
+class powervisionystatus(Base):
+    __tablename__ = "powervisiony_status"
     id = Column("id", Integer, primary_key=True)
     device_id = Column("device_id", Integer, ForeignKey(Device.id))
-    battery_level = Column("battery_level", Float)
+    powervisiony_level = Column("powervisiony_level", Float)
     number_charges = Column("number_charges", Integer)
     dt_updated = Column("dt_updated", DateTime, server_default=func.now())
 

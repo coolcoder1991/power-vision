@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # _*_ coding: utf-8 _*_
 
-"""Tests for 'batter_models' package."""
+"""Tests for 'powervision_models' package."""
 
 import pytest
 from click.testing import CliRunner
 
-from batter_models import main
+from powervision_models import main
 
 
 @pytest.fixture
