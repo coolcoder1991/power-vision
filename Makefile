@@ -31,5 +31,5 @@ backup:
 	docker exec -t dg_postgres pg_dump -d powervision -c -U admin > backend/data/dump.sql
 
 restore:
-        cat backend/data/dump.sql | docker exec -i dg_postgres psql -U admin -d powervision
+	cat backend/data/dump.sql | docker exec -i dg_postgres psql -U admin -d powervision
 
