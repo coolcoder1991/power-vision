@@ -9,9 +9,9 @@ build:
 	poetry install
 	poetry build
 
-pre_commit_init:
-	poetry run pre-commit install --hook-type pre-push
-	poetry run pre-commit run --all-files
+pre-commit-init:
+	cd backend && poetry run pre-commit install --hook-type pre-push
+	cd backend && poetry run pre-commit run --all-files
 
 up:
 	docker compose up -d

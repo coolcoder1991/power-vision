@@ -6,7 +6,6 @@ import sys
 import click
 
 
-
 @click.command()
 def main(args=None):
     """Console script for powervision_models."""

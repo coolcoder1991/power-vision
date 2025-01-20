@@ -30,7 +30,9 @@ def upgrade() -> None:
         sa.PrimaryKeyConstraint("id"),
     )
     op.add_column("device", sa.Column("powervisiony_id", sa.Integer(), nullable=True))
-    op.create_foreign_key(None, "device", "powervisiony_type", ["powervisiony_id"], ["id"])
+    op.create_foreign_key(
+        None, "device", "powervisiony_type", ["powervisiony_id"], ["id"]
+    )
     # ### end Alembic commands ###
 
 
