@@ -21,14 +21,13 @@ export class AccountService {
     await queryRunner.connect();
 
     await queryRunner.startTransaction();
-    const x = await queryRunner.query('select * from accounts');
-
     try {
-      console.log('accounts[0]: ', accounts[0]);
-      console.log('type of account: ', typeof accounts[0]);
-
-      await queryRunner.query(
-        ` INSERT INTO accounts(name, dt_updated, password) VALUES ('${accounts[0].name}','${accounts[0].password}') RETURNING id;`,
+      await Promise.all(
+        accounts.map((account) => {
+          queryRunner.query(
+            ` INSERT INTO accounts(name,  password) VALUES ('${account.name}','${account.password}') RETURNING id;`,
+          );
+        }),
       );
 
       await queryRunner.commitTransaction();

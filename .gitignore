@@ -1,5 +1,6 @@
 frontend/out/*
 poetry.lock
+backend/data/*
 
 #byte compiled / optimized / DLL Files
 __pycache__/
