@@ -1,3 +1,5 @@
+// const API_URL = process.env.API_URL;
+const API_URL = "localhost";
 const showDeviceDetails = (deviceDetails: string) => {
   const detailsBox = document.getElementById(`device-details-${deviceDetails}`);
   const devicesContainer = document.getElementById("devices");
@@ -172,7 +174,7 @@ const deleteDevice = (event) => {
 };
 
 const getAccounts = async () => {
-  const url = "http://localhost:3000/account/admin";
+  const url = `http://${API_URL}:3000/account/admin`;
   const options = {
     method: "GET",
   };
@@ -187,7 +189,7 @@ const getAccounts = async () => {
 };
 
 const createDevice = async (): Promise<Device> => {
-  const url = "http://localhost:3000/device";
+  const url = `http://${API_URL}:3000/device`;
   const options = {
     method: "POST",
     headers: { "content-type": "application/json" },
@@ -204,7 +206,7 @@ const createDevice = async (): Promise<Device> => {
 };
 
 const getDevices = async () => {
-  const url = "http://localhost:3000/device";
+  const url = `http://${API_URL}:3000/device`;
   const options = {
     method: "GET",
     headers: { "content-type": "application/json" },
@@ -221,7 +223,7 @@ const getDevices = async () => {
 };
 
 const getDevice = async (device_id): Promise<Device> => {
-  const url = `http://localhost:3000/device/${device_id}`;
+  const url = `http://${API_URL}:3000/device/${device_id}`;
   const options = {
     method: "GET",
     headers: { "content-type": "application/json" },

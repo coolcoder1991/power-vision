@@ -3,6 +3,11 @@
     "target": "ES5",
     "module": "CommonJS",
     "outDir": "out",
-    "sourceMap": true
-  }
+    "sourceMap": true,
+    "skipLibCheck": true
+  },
+  "types": "node",
+
+  // "exclude": ["node_modules", "typings"],
+  "files": ["./scripts.ts"]
 }
