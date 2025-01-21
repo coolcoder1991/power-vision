@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post } from '@nestjs/common';
 import { DeviceService } from './device.service';
 import { Device } from './device.interface';
 
@@ -6,8 +6,13 @@ import { Device } from './device.interface';
 export class DeviceController {
   constructor(private deviceService: DeviceService) {}
 
+  @Get('/:id')
+  find(@Param('id') device_id: number): Promise<Device> {
+    return this.deviceService.find(device_id);
+  }
+
   @Get()
-  find(): Promise<Device[]> {
+  findAll(): Promise<Device[]> {
     return this.deviceService.findAll();
   }
 

@@ -57,7 +57,22 @@ const invokeShowDetails = (event) => {
   showDeviceDetails(elementId);
 };
 
-const addDevice = () => {
+const loadDevices = async () => {
+  const allDevices = await getDevices();
+  if (allDevices.length > 0) {
+    allDevices.map((device: Device) => {
+      createDeviceBox(device);
+    });
+  }
+};
+
+const addDevice = async () => {
+  const resp = await createDevice();
+  const device = await getDevice(resp.id);
+  createDeviceBox(device);
+};
+
+const createDeviceBox = (device: Device) => {
   const deviceSuffix = Date.now();
   console.log(`adding device device${deviceSuffix}`);
   const newDiv = document.createElement("div");
@@ -69,16 +84,16 @@ const addDevice = () => {
   });
   const newSpan = document.createElement("span");
   newSpan.id = "newSpan";
-  newSpan.innerHTML = "New Device";
+  newSpan.innerHTML = device.name;
   newSpan.style.pointerEvents = "none";
   newDiv.appendChild(newSpan);
   const devices = document.getElementById("devices");
   devices.appendChild(newDiv);
-  createDetailsTitle(deviceSuffix);
-  createDetails(deviceSuffix);
+  createDetailsTitle(deviceSuffix, device.name);
+  createDetails(deviceSuffix, device);
 };
 
-const createDetailsTitle = (deviceNumber) => {
+const createDetailsTitle = (deviceNumber: number, deviceName: string) => {
   const newDetailsTitle = document.createElement("div");
   newDetailsTitle.id = `device-details-title-device${deviceNumber}`;
   newDetailsTitle.className = "device-details-title-box full";
@@ -86,12 +101,12 @@ const createDetailsTitle = (deviceNumber) => {
     hideDeviceDetails(event);
   });
   const titleDeviceName = document.createElement("p");
-  titleDeviceName.innerHTML = "new device";
+  titleDeviceName.innerHTML = deviceName;
   newDetailsTitle.appendChild(titleDeviceName);
   document.getElementById("article").appendChild(newDetailsTitle);
 };
 
-const createDetails = (deviceNumber) => {
+const createDetails = (deviceNumber: number, device: Device) => {
   const newDetails = document.createElement("div");
   const chargingInfo = document.createElement("div");
   chargingInfo.className = "charging-info-box";
@@ -102,11 +117,11 @@ const createDetails = (deviceNumber) => {
   const deleteButton = document.createElement("button");
   const editButton = document.createElement("button");
 
-  chargeLevel.innerHTML = "Charrge Level: 100";
+  chargeLevel.innerHTML = `Charrge Level: ${device.battery_level}`;
   lastCharged.innerHTML = `Last Charged: ${
     new Date().toISOString().split("T")[0]
   }`;
-  totalCharges.innerHTML = "Total Charges: 0";
+  totalCharges.innerHTML = `Total Charges: ${device.number_charges}`;
   deleteButton.innerHTML = "delete";
   deleteButton.className = "delete-device-button";
   deleteButton.id = `delete-device-button-device${deviceNumber}`;
@@ -171,7 +186,7 @@ const getAccounts = async () => {
   }
 };
 
-const createDevice = async () => {
+const createDevice = async (): Promise<Device> => {
   const url = "http://localhost:3000/device";
   const options = {
     method: "POST",
@@ -204,3 +219,31 @@ const getDevices = async () => {
     console.error(error);
   }
 };
+
+const getDevice = async (device_id): Promise<Device> => {
+  const url = `http://localhost:3000/device/${device_id}`;
+  const options = {
+    method: "GET",
+    headers: { "content-type": "application/json" },
+  };
+
+  try {
+    const response = await fetch(url, options);
+    console.log(response);
+    const data = response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+interface Device {
+  id: number;
+  name: string;
+  model?: string;
+  account_id: number;
+  battery_id?: number;
+  battery_level: number;
+  number_charges: number;
+}
+
+document.addEventListener("DOMContentLoaded", loadDevices, false);
