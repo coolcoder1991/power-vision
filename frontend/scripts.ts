@@ -103,7 +103,9 @@ const createDetails = (deviceNumber) => {
   const editButton = document.createElement("button");
 
   chargeLevel.innerHTML = "Charrge Level: 100";
-  lastCharged.innerHTML = "Last Charged: 1-19-25";
+  lastCharged.innerHTML = `Last Charged: ${
+    new Date().toISOString().split("T")[0]
+  }`;
   totalCharges.innerHTML = "Total Charges: 0";
   deleteButton.innerHTML = "delete";
   deleteButton.className = "delete-device-button";
@@ -155,7 +157,7 @@ const deleteDevice = (event) => {
 };
 
 const getAccounts = async () => {
-  const url = "http://localhost:3000/account";
+  const url = "http://localhost:3000/account/admin";
   const options = {
     method: "GET",
   };
@@ -164,6 +166,40 @@ const getAccounts = async () => {
     const response = await fetch(url, options);
     const data = await response.json();
     console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const createDevice = async () => {
+  const url = "http://localhost:3000/device";
+  const options = {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+  };
+
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const getDevices = async () => {
+  const url = "http://localhost:3000/device";
+  const options = {
+    method: "GET",
+    headers: { "content-type": "application/json" },
+  };
+
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+    console.log(data);
+    return data;
   } catch (error) {
     console.error(error);
   }

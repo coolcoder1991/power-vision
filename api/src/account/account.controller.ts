@@ -1,7 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { Account } from './account.interface';
 import { AccountService } from './account.service';
-import { CreateAccountDto } from './create-account.dto';
 
 @Controller('account')
 export class AccountController {

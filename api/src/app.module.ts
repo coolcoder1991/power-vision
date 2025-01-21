@@ -6,6 +6,8 @@ import { AccountService } from './account/account.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { DbService } from './db/db.service';
+import { DeviceController } from './device/device.controller';
+import { DeviceService } from './device/device.service';
 
 @Module({
   imports: [
@@ -20,8 +22,8 @@ import { DbService } from './db/db.service';
       autoLoadEntities: true,
     }),
   ],
-  controllers: [AppController, AccountController],
-  providers: [AppService, AccountService, DbService],
+  controllers: [AppController, AccountController, DeviceController],
+  providers: [AppService, AccountService, DbService, DeviceService],
 })
 export class AppModule {
   constructor(private datasource: DataSource) {}

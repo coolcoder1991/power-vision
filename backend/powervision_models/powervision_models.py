@@ -28,7 +28,7 @@ class Device(Base):
     name = Column("name", Text)
     model = Column("model", Text)
     account_id = Column("account_id", Integer, ForeignKey(Accounts.id))
-    batteryid = Column("batteryid", Integer, ForeignKey(BatteryType.id))
+    battery_id = Column("battery_id", Integer, ForeignKey(BatteryType.id))
     dt_updated = Column("dt_updated", DateTime, server_default=func.now())
 
 

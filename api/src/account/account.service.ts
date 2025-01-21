@@ -1,15 +1,10 @@
-import { Injectable, Post } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Account } from './account.interface';
-import { DataSource } from 'typeorm';
-import { query } from 'express';
 import { DbService } from 'src/db/db.service';
 
 @Injectable()
 export class AccountService {
-  constructor(
-    private dataSource: DataSource,
-    private dbService: DbService,
-  ) {}
+  constructor(private dbService: DbService) {}
 
   async find(account_name: string): Promise<Account> {
     const query = `select * from accounts where name='${account_name}' order by dt_updated desc limit 1`;
