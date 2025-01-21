@@ -1,8 +1,6 @@
 {
   "dependencies": {
-    "@types/es6-promise": "^0.0.33"
-  },
-  "devDependencies": {
-    "@types/node": "^22.10.7"
+    "@types/es6-promise": "^0.0.33",
+    "dotenv": "^16.4.7"
   }
 }

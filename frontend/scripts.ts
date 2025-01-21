@@ -1,4 +1,7 @@
 // const API_URL = process.env.API_URL;
+import * as dotenv from "dotenv";
+dotenv.config();
+process.env.API_URL;
 const API_URL = "localhost";
 const showDeviceDetails = (deviceDetails: string) => {
   const detailsBox = document.getElementById(`device-details-${deviceDetails}`);
