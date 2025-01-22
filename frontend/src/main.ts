@@ -214,7 +214,7 @@ export const getDevice = async (device_id: number): Promise<Device> => {
   try {
     const response = await fetch(url, options);
     console.log(response);
-    const data = response.json();
+    const data = await response.json();
     return data;
   } catch (error) {
     console.error(error);
