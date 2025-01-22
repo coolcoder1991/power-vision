@@ -54,10 +54,21 @@ header {
 
 .header-menu-dropdown-box {
   display: none;
-  /* position: absolute; */
+  cursor: pointer;
   background-color: #f1f1f1;
   min-width: 160px;
   z-index: 1;
+  padding: 3px 5px;
+  margin: 0 auto;
+}
+
+.dropdown-menu-item {
+  cursor: pointer;
+  font-size: 14px;
+  border: none;
+}
+.dropdown-menu-item:hover {
+  font-weight: bold;
 }
 
 .show {
@@ -194,4 +205,8 @@ header {
 
 .charging-info-box {
   margin: 20px 10px;
+}
+
+.hamburg-list {
+  cursor: pointer;
 }

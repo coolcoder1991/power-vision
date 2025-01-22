@@ -34,7 +34,7 @@ export class DeviceService {
 
   async findAll() {
     const query =
-      'select a.name, a.model, b.last_charged, b.depletion_date ' +
+      'select a.id, a.name, a.model, b.last_charged, b.depletion_date ' +
       'from device as a left join charging as ' +
       'b on a.id = b.device_id join accounts as c on a.account_id = c.id where a.account_id = 1';
     const res = this.dbService.runQuery(query);

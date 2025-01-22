@@ -8,10 +8,13 @@ const showMenu = () => {
 };
 
 const addDevice = async () => {
+  // Create a new defice with default settings
+  // upload device to db. then get the new device and create a div in html.
   const resp = await createDevice();
-  await delay(500);
+  await delay(100);
   const device = await getDevice(resp.id);
   createDeviceBox(device);
 };
-document.querySelector("button")?.addEventListener("click", addDevice);
+
+document.querySelector("li")?.addEventListener("click", addDevice);
 document.querySelector("img")!.addEventListener("click", showMenu);

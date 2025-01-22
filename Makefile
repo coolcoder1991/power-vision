@@ -21,7 +21,7 @@ down:
 	docker compose down
 
 site:
-	cd frontend && tsc --watch
+	cd frontend && npm run dev
 
 apis:
 	cd api && npm run start:dev

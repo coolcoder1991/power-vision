@@ -66,15 +66,19 @@ const loadDevices = async () => {
   const allDevices = await getDevices();
   if (allDevices.length > 0) {
     allDevices.map((device: Device) => {
-      createDeviceBox(device);
+      console.log(device);
+      let device_uid = createDeviceBox(device);
+      sessionStorage.setItem(device_uid, device.id.toString());
     });
   }
 };
 
-export const createDeviceBox = (device: Device) => {
+export const createDeviceBox = (device: Device): string => {
+  // creates a new device box, along with details and details-title
   const deviceSuffix = Date.now();
   console.log(`adding device device${deviceSuffix}`);
   const newDiv = document.createElement("div");
+  const device_uid = `device${deviceSuffix}`;
   newDiv.id = `device${deviceSuffix}`;
   newDiv.className = "device-box full";
 
@@ -90,6 +94,7 @@ export const createDeviceBox = (device: Device) => {
   devices!.appendChild(newDiv);
   createDetailsTitle(deviceSuffix, device.name);
   createDetails(deviceSuffix, device);
+  return device_uid;
 };
 
 const createDetailsTitle = (deviceNumber: number, deviceName: string) => {
@@ -165,6 +170,11 @@ const deleteDevice = (event: MouseEvent) => {
   detailsTitle!.remove();
   deviceDetails!.remove();
   device!.remove();
+  const retreived_device = sessionStorage.getItem(deviceName);
+  if (retreived_device) {
+    removeDevice(Number(retreived_device));
+    sessionStorage.removeItem(deviceName);
+  }
 };
 
 export const createDevice = async (): Promise<Device> => {
