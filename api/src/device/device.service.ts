@@ -40,4 +40,14 @@ export class DeviceService {
     const res = this.dbService.runQuery(query);
     return res;
   }
+
+  async delete(id: number) {
+    const batteryQuery = `delete from battery_status where device_id = ${id};`;
+    const chargingQuery = `delete from charging where device_id = ${id};`;
+    const deviceQuery = `delete from device where id = ${id} RETURNING *;`;
+    await this.dbService.runQuery(batteryQuery);
+    await this.dbService.runQuery(chargingQuery);
+    const res = await this.dbService.runQuery(deviceQuery);
+    return res[0];
+  }
 }
