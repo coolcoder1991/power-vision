@@ -143,9 +143,6 @@ const createDetails = (deviceNumber: number, device: Device) => {
 };
 
 const deleteDevice = (event: MouseEvent) => {
-  // newDetailsTitle.addEventListener("click", (event) => {
-  //   hideDeviceDetails(event);
-  // });
   const deviceId = (<HTMLElement>event.target).id;
   const deviceName = deviceId.replace("delete-device-button-", "");
   const device = document.getElementById(deviceName);
@@ -164,6 +161,7 @@ const deleteDevice = (event: MouseEvent) => {
     detailsTitle!.style.display = "none";
   }
   console.log(`deleting device ${deviceName}`);
+
   detailsTitle!.remove();
   deviceDetails!.remove();
   device!.remove();
@@ -219,6 +217,23 @@ export const getDevice = async (device_id: number): Promise<Device> => {
   } catch (error) {
     console.error(error);
     throw new Error(`Could not get device ${device_id}`);
+  }
+};
+
+const removeDevice = async (device_id: number) => {
+  const url = `http://${API_URL}:3000/device/${device_id}`;
+  const options = {
+    method: "DELETE",
+    headers: { "content-type": "application/json" },
+    body: undefined,
+  };
+
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
   }
 };
 interface Device {
