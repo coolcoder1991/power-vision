@@ -1,4 +1,7 @@
 // const API_URL = process.env.API_URL;
+
+import { setColorFromCharge } from "./color_charge";
+
 // const apiUrl = import.meta.env.API_URL;
 console.log("this is apiurl: ", import.meta.env.VITE_API_URL);
 
@@ -80,7 +83,8 @@ export const createDeviceBox = (device: Device): string => {
   const newDiv = document.createElement("div");
   const device_uid = `device${deviceSuffix}`;
   newDiv.id = `device${deviceSuffix}`;
-  newDiv.className = "device-box full";
+  const chargeColorClass = setColorFromCharge(device.battery_level);
+  newDiv.className = `device-box ${chargeColorClass}`;
 
   newDiv.addEventListener("click", (event: MouseEvent) => {
     invokeShowDetails(event);
@@ -256,4 +260,4 @@ interface Device {
   number_charges: number;
 }
 
-document.addEventListener("DOMContentLoaded", loadDevices, false);
+document.addEventListener("DOMContentLoaded", loadDevices, { once: true });
