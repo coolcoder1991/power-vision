@@ -123,12 +123,61 @@ header {
   background-color: #ffd6a5;
 }
 
+/*
+Blue: #9bf6ff
+Black: #212529;
+Orange: #ffd6a5;
+Red: #ffadad;
+PINK: #ffc6ff
+Green: #caffbf
+yello: #fdffb6
+*/
 .full {
-  background-color: #caffbf;
+  border: 2px solid;
+  /* border-image: linear-gradient(to right, #ffadad, #fdffb6, #caffbf, #9bf6ff) 1; */
+  border-image: linear-gradient(to right, #caffbf, #caffbf, #caffbf, #caffbf) 1;
+  /* padding: 20px; */
+  text-align: center;
+  color: white;
+  font-weight: lighter;
+  border-radius: 10px;
+}
+.full75 {
+  border: 2px solid;
+  /* border-image: linear-gradient(to right, #ffadad, #fdffb6, #caffbf, #9bf6ff) 1; */
+  border-image: linear-gradient(to right, #ffd6a5, #fdffb6, #caffbf, #caffbf) 1;
+  /* padding: 20px; */
+  text-align: center;
+  color: white;
+  font-weight: lighter;
+  border-radius: 10px;
+}
+
+.full50 {
+  border: 2px solid;
+  border-image: linear-gradient(to right, #ffadad, #ffd6a5, #fdffb6, #fdffb6) 1;
+  text-align: center;
+  color: white;
+  font-weight: lighter;
+  border-radius: 10px;
+}
+
+.full25 {
+  border: 2px solid;
+  border-image: linear-gradient(to right, #ffadad, #ffadad, #ffd6a5, #ffd6a5) 1;
+  text-align: center;
+  color: white;
+  font-weight: lighter;
+  border-radius: 10px;
 }
 
 .dead {
-  background-color: #ffadad;
+  border: 2px solid;
+  border-image: linear-gradient(to right, #ffadad, #ffadad, #ffadad, #ffadad) 1;
+  text-align: center;
+  color: white;
+  font-weight: lighter;
+  border-radius: 10px;
 }
 
 .device-name {
