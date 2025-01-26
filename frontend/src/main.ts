@@ -1,10 +1,10 @@
 // const API_URL = process.env.API_URL;
 
 import { setColorFromCharge } from "./color_charge";
-import { formatDate } from "./helper";
+import { createEditForm, showEditFields } from "./edit_device";
+import { classNameToDevice, formatDate } from "./helper";
 
 // const apiUrl = import.meta.env.API_URL;
-console.log("this is apiurl: ", import.meta.env.VITE_API_URL);
 
 const API_URL = "localhost";
 const showDeviceDetails = (deviceDetails: string) => {
@@ -27,8 +27,7 @@ const showDeviceDetails = (deviceDetails: string) => {
 
 const hideDeviceDetails = (event: MouseEvent) => {
   const deviceDetailsTitle = (<HTMLElement>event.target).id;
-
-  const deviceName = deviceDetailsTitle.replace("device-details-title-", "");
+  const deviceName = classNameToDevice(deviceDetailsTitle);
   const detailsBox = document.getElementById(`device-details-${deviceName}`);
   const devicesContainer = document.getElementById("devices");
   const deviceTitle = document.getElementById(deviceDetailsTitle);
@@ -66,7 +65,6 @@ const loadDevices = async () => {
   const allDevices = await getDevices();
   if (allDevices.length > 0) {
     allDevices.map((device: Device) => {
-      console.log(device);
       let device_uid = createDeviceBox(device);
       sessionStorage.setItem(device_uid, device.id.toString());
     });
@@ -76,7 +74,6 @@ const loadDevices = async () => {
 export const createDeviceBox = (device: Device): string => {
   // creates a new device box, along with details and details-title
   const deviceSuffix = Date.now();
-  console.log(`adding device device${deviceSuffix}`);
   const newDiv = document.createElement("div");
   const device_uid = `device${deviceSuffix}`;
   newDiv.id = `device${deviceSuffix}`;
@@ -140,6 +137,10 @@ const createDetails = (deviceNumber: number, device: Device) => {
   editButton.innerHTML = "edit";
   editButton.id = `edit-device-button-device${deviceNumber}`;
 
+  editButton.addEventListener("click", () => {
+    showEditFields(newDetails);
+  });
+
   const article = document.getElementById("article");
   newDetails.id = `device-details-device${deviceNumber}`;
 
@@ -151,11 +152,12 @@ const createDetails = (deviceNumber: number, device: Device) => {
   newDetails.appendChild(deleteButton);
 
   article!.appendChild(newDetails);
+  createEditForm(newDetails);
 };
 
 const deleteDevice = (event: MouseEvent) => {
   const deviceId = (<HTMLElement>event.target).id;
-  const deviceName = deviceId.replace("delete-device-button-", "");
+  const deviceName = classNameToDevice(deviceId);
   const device = document.getElementById(deviceName);
   const detailsTitle = document.getElementById(
     `device-details-title-${deviceName}`
@@ -171,7 +173,6 @@ const deleteDevice = (event: MouseEvent) => {
     devicesContainer!.style.display = "grid";
     detailsTitle!.style.display = "none";
   }
-  console.log(`deleting device ${deviceName}`);
 
   detailsTitle!.remove();
   deviceDetails!.remove();
@@ -193,7 +194,6 @@ export const createDevice = async (): Promise<Device> => {
   try {
     const response = await fetch(url, options);
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error(error);
@@ -211,7 +211,6 @@ const getDevices = async () => {
   try {
     const response = await fetch(url, options);
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error(error);
@@ -227,7 +226,6 @@ export const getDevice = async (device_id: number): Promise<Device> => {
 
   try {
     const response = await fetch(url, options);
-    console.log(response);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -246,8 +244,7 @@ const removeDevice = async (device_id: number) => {
 
   try {
     const response = await fetch(url, options);
-    const data = await response.json();
-    console.log(data);
+    await response.json();
   } catch (error) {
     console.error(error);
   }

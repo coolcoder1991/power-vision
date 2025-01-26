@@ -6,3 +6,18 @@ export const formatDate = (dateString: string) => {
     date.getFullYear(),
   ].join("-");
 };
+
+export const classNameToDevice = (className: string) => {
+  const deviceName = className.split("-").pop();
+  const regex = /device/;
+  if (!deviceName) {
+    throw new Error(`No device found in class name: ${className}`);
+  } else {
+    regex.test(deviceName)
+      ? deviceName
+      : () => {
+          throw new Error(`No device found in class name: ${className}`);
+        };
+  }
+  return deviceName;
+};
