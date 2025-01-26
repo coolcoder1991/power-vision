@@ -21,7 +21,8 @@ export class DeviceService {
 
   async find(id: number): Promise<Device> {
     const query =
-      `select a.name, a.model, b.last_charged, b.depletion_date, bat_stat.battery_level, bat_stat.number_charges ` +
+      `select a.name, a.model, b.last_charged, b.depletion_date, b.last_charged, ` +
+      `bat_stat.battery_level, bat_stat.number_charges ` +
       `from device as a left join charging as ` +
       `b on a.id = b.device_id join accounts as c on a.account_id = c.id ` +
       `join battery_status as bat_stat on a.id = bat_stat.device_id ` +
@@ -34,7 +35,7 @@ export class DeviceService {
 
   async findAll() {
     const query =
-      'select a.id, a.name, a.model, b.last_charged, b.depletion_date, ' +
+      'select a.id, a.name, a.model, b.last_charged, b.depletion_date, b.last_charged, ' +
       'bat_stat.battery_level, bat_stat.number_charges ' +
       'from device as a left join charging as ' +
       'b on a.id = b.device_id join accounts as c on a.account_id = c.id ' +

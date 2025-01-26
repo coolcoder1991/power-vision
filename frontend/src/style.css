@@ -210,13 +210,17 @@ yello: #fdffb6
 }
 
 .device-details-title-box {
-  background-color: #caffbf;
+  border: 1px solid #ffc6ff;
+  color: #9bf6ff;
   margin: 0 auto;
   width: 200px;
   text-align: center;
   border-radius: 5px;
   display: none;
   cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 5px;
 }
 
 .device-details-title-box p {
@@ -253,7 +257,10 @@ yello: #fdffb6
 }
 
 .charging-info-box {
-  margin: 20px 10px;
+  /* margin: 20px 10px; */
+  text-align: left;
+  margin-left: 50px;
+  margin-top: 20px;
 }
 
 .hamburg-list {

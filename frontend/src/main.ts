@@ -1,6 +1,7 @@
 // const API_URL = process.env.API_URL;
 
 import { setColorFromCharge } from "./color_charge";
+import { formatDate } from "./helper";
 
 // const apiUrl = import.meta.env.API_URL;
 console.log("this is apiurl: ", import.meta.env.VITE_API_URL);
@@ -42,10 +43,6 @@ const hideDeviceDetails = (event: MouseEvent) => {
   }
   return false;
 };
-
-// export const showMenu = () => {
-//   document.getElementById("header-menu-dropdown").classList.toggle("show");
-// };
 
 window.onclick = (event: MouseEvent) => {
   if (!(<HTMLElement>event.target).matches(".hamburg-list")) {
@@ -96,15 +93,20 @@ export const createDeviceBox = (device: Device): string => {
   newDiv.appendChild(newSpan);
   const devices = document.getElementById("devices");
   devices!.appendChild(newDiv);
-  createDetailsTitle(deviceSuffix, device.name);
+  createDetailsTitle(deviceSuffix, device.name, device.battery_level);
   createDetails(deviceSuffix, device);
   return device_uid;
 };
 
-const createDetailsTitle = (deviceNumber: number, deviceName: string) => {
+const createDetailsTitle = (
+  deviceNumber: number,
+  deviceName: string,
+  batteryLevel: number
+) => {
+  const chargeColorClass = setColorFromCharge(batteryLevel);
   const newDetailsTitle = document.createElement("div");
   newDetailsTitle.id = `device-details-title-device${deviceNumber}`;
-  newDetailsTitle.className = "device-details-title-box full";
+  newDetailsTitle.className = `device-details-title-box ${chargeColorClass}`;
   newDetailsTitle.addEventListener("click", (event: MouseEvent) => {
     hideDeviceDetails(event);
   });
@@ -115,20 +117,20 @@ const createDetailsTitle = (deviceNumber: number, deviceName: string) => {
 };
 
 const createDetails = (deviceNumber: number, device: Device) => {
+  const colorChargeClass = setColorFromCharge(device.battery_level);
   const newDetails = document.createElement("div");
   const chargingInfo = document.createElement("div");
   chargingInfo.className = "charging-info-box";
-  newDetails.className = "details-box full";
+  newDetails.className = `details-box ${colorChargeClass}`;
   const chargeLevel = document.createElement("p");
   const lastCharged = document.createElement("p");
   const totalCharges = document.createElement("p");
   const deleteButton = document.createElement("button");
   const editButton = document.createElement("button");
 
-  chargeLevel.innerHTML = `Charrge Level: ${device.battery_level}`;
-  lastCharged.innerHTML = `Last Charged: ${
-    new Date().toISOString().split("T")[0]
-  }`;
+  chargeLevel.innerHTML = `Charge Level: ${device.battery_level * 100}%`;
+
+  lastCharged.innerHTML = `Last Charged: ${formatDate(device.last_charged)}`;
   totalCharges.innerHTML = `Total Charges: ${device.number_charges}`;
   deleteButton.innerHTML = "delete";
   deleteButton.className = "delete-device-button";
@@ -258,6 +260,7 @@ interface Device {
   battery_id?: number;
   battery_level: number;
   number_charges: number;
+  last_charged: string;
 }
 
 document.addEventListener("DOMContentLoaded", loadDevices, { once: true });
