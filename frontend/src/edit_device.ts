@@ -1,6 +1,6 @@
 import { classNameToDevice } from "./helper";
 
-export const showEditFields = (deviceBox: HTMLElement) => {
+export const toggleEditFields = (deviceBox: HTMLElement) => {
   const editBox = <HTMLElement>(
     deviceBox.getElementsByClassName("edit-charging-info-box")[0]
   );
@@ -10,14 +10,23 @@ export const showEditFields = (deviceBox: HTMLElement) => {
   const editButton = <HTMLElement>(
     deviceBox.getElementsByClassName("edit-device-button")[0]
   );
-  editButton.style.display = "none";
-  chargingInfoBox.style.display = "none";
-  editBox.style.display = "grid";
   const deviceName = classNameToDevice(deviceBox.id);
   const changesActionDiv = document.getElementById(
     `action-device-div-${deviceName}`
   );
-  changesActionDiv!.style.display = "flex";
+  if (editButton.style.display != "none") {
+    editButton.style.display = "none";
+    chargingInfoBox.style.display = "none";
+    editBox.style.display = "grid";
+
+    changesActionDiv!.style.display = "flex";
+  } else {
+    editButton.style.display = "block";
+    chargingInfoBox.style.display = "block";
+    editBox.style.display = "none";
+
+    changesActionDiv!.style.display = "none";
+  }
 };
 
 export const createEditForm = (deviceBox: HTMLElement) => {
@@ -44,8 +53,4 @@ export const createEditForm = (deviceBox: HTMLElement) => {
 
 export const submitDeviceChanges = () => {
   console.log("submitted!");
-};
-
-export const discardDeviceChanges = () => {
-  console.log("discarded!");
 };

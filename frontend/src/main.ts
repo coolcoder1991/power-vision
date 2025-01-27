@@ -3,8 +3,7 @@
 import { setColorFromCharge } from "./color_charge";
 import {
   createEditForm,
-  discardDeviceChanges,
-  showEditFields,
+  toggleEditFields,
   submitDeviceChanges,
 } from "./edit_device";
 import { classNameToDevice, formatDate } from "./helper";
@@ -150,14 +149,16 @@ const createDetails = (deviceNumber: number, device: Device) => {
   submitButton.onclick = submitDeviceChanges;
   discardButton.innerHTML = "discard changes";
   discardButton.id = `discard-device-button-device${deviceNumber}`;
-  discardButton.onclick = discardDeviceChanges;
+  discardButton.addEventListener("click", () => {
+    toggleEditFields(newDetails);
+  });
   discardButton.className = "action-device-button default-action";
   changesActionDiv.style.display = "none";
   changesActionDiv.id = `action-device-div-device${deviceNumber}`;
   changesActionDiv.className = "action-device-box";
 
   editButton.addEventListener("click", () => {
-    showEditFields(newDetails);
+    toggleEditFields(newDetails);
   });
 
   const article = document.getElementById("article");
