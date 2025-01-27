@@ -1,7 +1,12 @@
 // const API_URL = process.env.API_URL;
 
 import { setColorFromCharge } from "./color_charge";
-import { createEditForm, showEditFields } from "./edit_device";
+import {
+  createEditForm,
+  discardDeviceChanges,
+  showEditFields,
+  submitDeviceChanges,
+} from "./edit_device";
 import { classNameToDevice, formatDate } from "./helper";
 
 // const apiUrl = import.meta.env.API_URL;
@@ -124,18 +129,32 @@ const createDetails = (deviceNumber: number, device: Device) => {
   const totalCharges = document.createElement("p");
   const deleteButton = document.createElement("button");
   const editButton = document.createElement("button");
+  const submitButton = document.createElement("button");
+  const discardButton = document.createElement("button");
+  const changesActionDiv = document.createElement("div");
 
   chargeLevel.innerHTML = `Charge Level: ${device.battery_level * 100}%`;
 
   lastCharged.innerHTML = `Last Charged: ${formatDate(device.last_charged)}`;
   totalCharges.innerHTML = `Total Charges: ${device.number_charges}`;
   deleteButton.innerHTML = "delete";
-  deleteButton.className = "delete-device-button";
+  deleteButton.className = "action-device-button delete";
   deleteButton.id = `delete-device-button-device${deviceNumber}`;
   deleteButton.onclick = deleteDevice;
   editButton.className = "edit-device-button";
   editButton.innerHTML = "edit";
   editButton.id = `edit-device-button-device${deviceNumber}`;
+  submitButton.innerHTML = "submit";
+  submitButton.id = `submit-device-button-device${deviceNumber}`;
+  submitButton.className = "action-device-button default";
+  submitButton.onclick = submitDeviceChanges;
+  discardButton.innerHTML = "discard changes";
+  discardButton.id = `discard-device-button-device${deviceNumber}`;
+  discardButton.onclick = discardDeviceChanges;
+  discardButton.className = "action-device-button default-action";
+  changesActionDiv.style.display = "none";
+  changesActionDiv.id = `action-device-div-device${deviceNumber}`;
+  changesActionDiv.className = "action-device-box";
 
   editButton.addEventListener("click", () => {
     showEditFields(newDetails);
@@ -149,7 +168,10 @@ const createDetails = (deviceNumber: number, device: Device) => {
   chargingInfo.appendChild(totalCharges);
   newDetails.append(chargingInfo);
   newDetails.appendChild(editButton);
-  newDetails.appendChild(deleteButton);
+  newDetails.appendChild(changesActionDiv);
+  changesActionDiv.appendChild(deleteButton);
+  changesActionDiv.appendChild(submitButton);
+  changesActionDiv.appendChild(discardButton);
 
   article!.appendChild(newDetails);
   createEditForm(newDetails);

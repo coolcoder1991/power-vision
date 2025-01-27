@@ -227,22 +227,33 @@ yello: #fdffb6
   pointer-events: none;
 }
 
-.delete-device-button {
+.action-device-button {
   cursor: pointer;
-  margin-top: 30px;
   padding: 2px 10px;
   border: 2px solid black;
   border-radius: 2px;
-  color: red;
   text-transform: uppercase;
   background-color: white;
   font-size: 10px;
   font-weight: bold;
-  grid-column-start: span 2;
-  justify-self: center;
+  /* grid-column-start: span 3; */
+  justify-content: space-between;
   letter-spacing: 0.5px;
 }
+.delete {
+  color: red;
+}
+.default-action {
+  color: black;
+}
 
+.edit-charging-info-box {
+  display: grid;
+  grid-column-start: 1;
+  grid-template-columns: 1fr 1fr;
+  align-content: space-evenly;
+  margin: 10px auto auto;
+}
 .edit-device-button {
   cursor: pointer;
   padding: 2px 10px;
@@ -265,4 +276,11 @@ yello: #fdffb6
 
 .hamburg-list {
   cursor: pointer;
+}
+
+.action-device-box {
+  display: flex;
+  margin: 30px auto auto;
+
+  grid-row-start: end;
 }
