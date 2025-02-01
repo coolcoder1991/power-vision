@@ -1,11 +1,8 @@
 // const API_URL = process.env.API_URL;
 
 import { setColorFromCharge } from "./color_charge";
-import {
-  createEditForm,
-  toggleEditFields,
-  submitDeviceChanges,
-} from "./edit_device";
+import { createEditForm, toggleEditFields } from "./edit_device";
+import { submitDeviceChanges } from "./formSubmission";
 import { classNameToDevice, formatDate } from "./helper";
 
 // const apiUrl = import.meta.env.API_URL;
@@ -32,7 +29,9 @@ const showDeviceDetails = (deviceDetails: string) => {
 const hideDeviceDetails = (event: MouseEvent) => {
   const deviceDetailsTitle = (<HTMLElement>event.target).id;
   const deviceName = classNameToDevice(deviceDetailsTitle);
-  const detailsBox = document.getElementById(`device-details-${deviceName}`);
+  const detailsBox = <HTMLElement>(
+    document.getElementById(`device-details-${deviceName}`)
+  );
   const devicesContainer = document.getElementById("devices");
   const deviceTitle = document.getElementById(deviceDetailsTitle);
   if (detailsBox!.style.display !== "grid") {
@@ -40,6 +39,7 @@ const hideDeviceDetails = (event: MouseEvent) => {
     devicesContainer!.style.display = "none";
     deviceTitle!.style.display = "block";
   } else {
+    toggleEditFields(detailsBox);
     detailsBox!.style.display = "none";
     devicesContainer!.style.display = "grid";
     deviceTitle!.style.display = "none";
@@ -130,6 +130,7 @@ const createDetails = (deviceNumber: number, device: Device) => {
   const editButton = document.createElement("button");
   const submitButton = document.createElement("button");
   const discardButton = document.createElement("button");
+  const errorMessage = document.createElement("p");
   const changesActionDiv = document.createElement("div");
 
   chargeLevel.innerHTML = `Charge Level: ${device.battery_level * 100}%`;
@@ -146,13 +147,18 @@ const createDetails = (deviceNumber: number, device: Device) => {
   submitButton.innerHTML = "submit";
   submitButton.id = `submit-device-button-device${deviceNumber}`;
   submitButton.className = "action-device-button default";
-  submitButton.onclick = submitDeviceChanges;
+  submitButton.addEventListener("click", () => {
+    submitDeviceChanges(deviceNumber);
+  });
   discardButton.innerHTML = "discard changes";
   discardButton.id = `discard-device-button-device${deviceNumber}`;
   discardButton.addEventListener("click", () => {
     toggleEditFields(newDetails);
   });
   discardButton.className = "action-device-button default-action";
+  errorMessage.style.display = "none";
+  errorMessage.id = `error-msg-device${deviceNumber}`;
+  errorMessage.className = "error-msg";
   changesActionDiv.style.display = "none";
   changesActionDiv.id = `action-device-div-device${deviceNumber}`;
   changesActionDiv.className = "action-device-box";
@@ -173,6 +179,7 @@ const createDetails = (deviceNumber: number, device: Device) => {
   changesActionDiv.appendChild(deleteButton);
   changesActionDiv.appendChild(submitButton);
   changesActionDiv.appendChild(discardButton);
+  changesActionDiv.appendChild(errorMessage);
 
   article!.appendChild(newDetails);
   createEditForm(newDetails);

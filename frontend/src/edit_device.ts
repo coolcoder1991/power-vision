@@ -10,6 +10,9 @@ export const toggleEditFields = (deviceBox: HTMLElement) => {
   const editButton = <HTMLElement>(
     deviceBox.getElementsByClassName("edit-device-button")[0]
   );
+  const errorMessage = <HTMLElement>(
+    deviceBox.getElementsByClassName("error-msg")[0]
+  );
   const deviceName = classNameToDevice(deviceBox.id);
   const changesActionDiv = document.getElementById(
     `action-device-div-${deviceName}`
@@ -17,9 +20,10 @@ export const toggleEditFields = (deviceBox: HTMLElement) => {
   if (editButton.style.display != "none") {
     editButton.style.display = "none";
     chargingInfoBox.style.display = "none";
+    errorMessage.style.display = "none";
     editBox.style.display = "grid";
 
-    changesActionDiv!.style.display = "flex";
+    changesActionDiv!.style.display = "grid";
   } else {
     editButton.style.display = "block";
     chargingInfoBox.style.display = "block";
@@ -30,16 +34,18 @@ export const toggleEditFields = (deviceBox: HTMLElement) => {
 };
 
 export const createEditForm = (deviceBox: HTMLElement) => {
+  const deviceName = classNameToDevice(deviceBox.id);
   const editBox = document.createElement("div");
   editBox.className = "edit-charging-info-box";
   const levelText = document.createElement("p");
-  const chargingLevel = document.createElement("input");
+
+  const chargingLevel = createInputForm(deviceName, "chargingLevel");
   const lastChargedText = document.createElement("p");
-  const lastCharged = document.createElement("input");
+  const lastCharged = createInputForm(deviceName, "lastCharged");
   const totalChargesText = document.createElement("p");
-  const totalCharges = document.createElement("input");
+  const totalCharges = createInputForm(deviceName, "totalCharges");
   totalChargesText.innerHTML = "Total charges:";
-  levelText.innerHTML = "Charging Level:";
+  levelText.innerHTML = "Charging Level (%):";
   lastChargedText.innerHTML = "Last Charged:";
   editBox.appendChild(levelText);
   editBox.appendChild(chargingLevel);
@@ -51,6 +57,9 @@ export const createEditForm = (deviceBox: HTMLElement) => {
   editBox.style.display = "none";
 };
 
-export const submitDeviceChanges = () => {
-  console.log("submitted!");
+const createInputForm = (name: string, fieldType: string) => {
+  const newInput = document.createElement("input");
+  newInput.className = `edit-device-${fieldType}-field`;
+  newInput.id = `device-form-field-${fieldType}-${name}`;
+  return newInput;
 };
