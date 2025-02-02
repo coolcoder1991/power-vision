@@ -419,4 +419,3 @@ ALTER TABLE ONLY public.device
 --
 -- PostgreSQL database dump complete
 --
-
