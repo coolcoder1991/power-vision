@@ -1,0 +1,8 @@
+from node:22
+RUN apt-get update && apt-get install -y
+
+WORKDIR /home/app 
+COPY . /home/app/
+
+RUN npm install && npm run build
+CMD ["npm", "run", "start:dev"]

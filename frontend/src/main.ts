@@ -1,13 +1,10 @@
-// const API_URL = process.env.API_URL;
-
 import { setColorFromCharge } from "./color_charge";
 import { createEditForm, toggleEditFields } from "./edit_device";
 import { submitDeviceChanges } from "./formSubmission";
 import { classNameToDevice, formatDate } from "./helper";
 
-// const apiUrl = import.meta.env.API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
-const API_URL = "localhost";
 const showDeviceDetails = (deviceDetails: string) => {
   const detailsBox = document.getElementById(`device-details-${deviceDetails}`);
   const devicesContainer = document.getElementById("devices");

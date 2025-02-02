@@ -8,23 +8,41 @@ import { DataSource } from 'typeorm';
 import { DbService } from './db/db.service';
 import { DeviceController } from './device/device.controller';
 import { DeviceService } from './device/device.service';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'admin',
-      password: 'admin',
-      database: 'powervision',
-      synchronize: true,
-      autoLoadEntities: true,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get('POSTGRES_HOST'),
+        port: +configService.get('POSTGRES_PORT'),
+        username: configService.get('POSTGRES_USERNAME'),
+        password: configService.get('POSTGRES_PASSWORD'),
+        database: configService.get('POSTGRES_DATABASE'),
+        entities: [],
+        synchronize: true,
+      }),
+      dataSourceFactory: async (options) => {
+        const dataSource = await new DataSource(options).initialize();
+        return dataSource;
+      },
+    }),
+    ConfigModule.forRoot({
+      envFilePath: ['.env', '.env.docker'],
     }),
   ],
   controllers: [AppController, AccountController, DeviceController],
-  providers: [AppService, AccountService, DbService, DeviceService],
+  providers: [
+    AppService,
+    AccountService,
+    DbService,
+    DeviceService,
+    ConfigService,
+  ],
 })
 export class AppModule {
-  constructor(private datasource: DataSource) {}
+  constructor() {}
 }

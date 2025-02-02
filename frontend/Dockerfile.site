@@ -1,0 +1,10 @@
+from node:22
+
+RUN apt-get update && apt-get install -y
+
+WORKDIR /home/app
+
+COPY . /home/app
+ENV VITE_API_URL=localhost
+RUN npm install && npm run build
+CMD ["npm", "run", "preview"]
