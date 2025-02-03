@@ -22,11 +22,22 @@ services:
     ports:
       - 3000:3000
     container_name: pv_api
+    environment:
+      POSTGRES_HOST: host.docker.internal # change this to 172.17.0.1 if linux os
+      POSTGRES_PORT: 5432
+      POSTGRES_USERNAME: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DATABASE: powervision
+      PORT: 3000
+      MODE: DEV
+      RUN_MIGRATIONS: true
   site:
     restart: always
     build:
       context: ./frontend
       dockerfile: ./Dockerfile.site
+      args:
+        VITE_API_URL: localhost # Change this to IP of API server if running remote
     depends_on:
       - db
       - api
